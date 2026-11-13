@@ -1,0 +1,2 @@
+import { defineConfig } from 'vite'; import react from '@vitejs/plugin-react'; import { cp } from 'node:fs/promises'; import { resolve } from 'node:path';
+export default defineConfig({plugins:[react(),{name:'copy-collected-space-assets',apply:'build',async closeBundle(){const root=process.cwd();await Promise.all(['Models','Skybox-bg'].map(name=>cp(resolve(root,name),resolve(root,'dist',name),{recursive:true})));}}],base:'./'});
