@@ -1,0 +1,34 @@
+{
+  "planets": [
+    {
+      "id": "moon",
+      "name": "Moon",
+      "tour_order": 1
+    },
+    {
+      "id": "mars",
+      "name": "Mars",
+      "tour_order": 2
+    }
+  ],
+  "missions": [
+    {
+      "id": "eagle",
+      "name": "Eagle",
+      "planet": "moon",
+      "year": 1969,
+      "tour_order": 1,
+      "description": "Apollo 11 Lunar Module Descent Stage",
+      "chapters": []
+    },
+    {
+      "id": "survey-or-3",
+      "name": "Surveyor 3",
+      "planet": "moon",
+      "year": 1967,
+      "tour_order": 2,
+      "description": "Lunar robotic lander",
+      "chapters": []
+    }
+  ]
+}
