@@ -1848,9 +1848,9 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, rgba(5, 12, 24, 0.65) 0%, rgba(2, 4, 9, 0.94) 85%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: linear-gradient(90deg, rgba(2, 4, 9, 0.50) 0%, rgba(2, 4, 9, 0.08) 72%, rgba(2, 4, 9, 0.02) 100%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   padding: 24px;
   opacity: 1;
   transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1866,13 +1866,16 @@ button:focus-visible {
 }
 
 .prologue-content-box {
-  max-width: 860px;
-  width: 100%;
-  text-align: center;
+  position: absolute;
+  left: 6vw;
+  bottom: 12vh;
+  max-width: 520px;
+  width: min(520px, 44vw);
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 22px;
+  align-items: flex-start;
+  gap: 16px;
   transform: translateY(0);
   transition: all 1.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1903,7 +1906,7 @@ button:focus-visible {
 
 .prologue-quote {
   font-family: 'Space Grotesk', system-ui, sans-serif;
-  font-size: clamp(1.8rem, 3.8vw, 3.2rem);
+  font-size: clamp(1.8rem, 3.1vw, 2.8rem);
   font-weight: 300;
   line-height: 1.25;
   color: #f0f4f9;
@@ -1913,7 +1916,7 @@ button:focus-visible {
 }
 
 .prologue-reflection {
-  font: 300 17px/1.7 'Inter', system-ui, sans-serif;
+  font: 300 15px/1.55 'Inter', system-ui, sans-serif;
   color: #a4b8cd;
   max-width: 680px;
   margin: 0;
@@ -1921,8 +1924,8 @@ button:focus-visible {
 
 .prologue-arabic-statement {
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: 16px;
+  line-height: 1.55;
   color: #dce5ee;
   max-width: 620px;
   background: rgba(18, 30, 48, 0.45);
@@ -1932,7 +1935,7 @@ button:focus-visible {
 }
 
 .prologue-action-area {
-  margin-top: 14px;
+  margin-top: 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1943,7 +1946,7 @@ button:focus-visible {
   background: linear-gradient(135deg, rgba(198, 179, 134, 0.22) 0%, rgba(13, 23, 38, 0.85) 100%);
   border: 1px solid var(--gold);
   color: #ffffff;
-  padding: 16px 36px;
+  padding: 13px 24px;
   border-radius: 4px;
   font-family: 'DM Mono', monospace;
   font-size: 13px;
@@ -1968,6 +1971,14 @@ button:focus-visible {
   font-size: 10px;
   color: #6d849e;
   letter-spacing: 0.18em;
+}
+
+@media (max-width: 680px) {
+  .prologue-content-box { left: 5vw; right: 5vw; bottom: 10vh; width: auto; max-width: none; }
+  .prologue-quote { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+  .prologue-reflection { font-size: 14px; }
+  .prologue-arabic-statement { font-size: 15px; padding: 9px 12px; }
+  .prologue-init-btn { padding: 11px 15px; font-size: 11px; letter-spacing: .08em; }
 }
 
 /* ==========================================================================
