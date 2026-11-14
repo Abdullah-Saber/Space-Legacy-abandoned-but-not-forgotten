@@ -2208,7 +2208,68 @@ button:focus-visible {
 }
 .archive-lightbox-close span { margin-left: 8px; font-size: 18px; }
 
+/* Clear the frame while the visitor examines a 3D artifact. */
+.museum.is-inspecting .topbar,
+.museum.is-inspecting .footer,
+.museum.is-inspecting .sci-fi-reticle,
+.museum.is-inspecting .sci-fi-telemetry-module,
+.museum.is-inspecting .planet-quick-dock,
+.museum.is-inspecting .narrative-rail,
+.museum.is-inspecting .sci-fi-specs-card,
+.museum.is-inspecting .manual-hint,
+.museum.is-inspecting .menu-scrim,
+.museum.is-inspecting .expedition-menu {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .45s ease, visibility 0s linear .45s;
+}
+
+.topbar,
+.footer,
+.sci-fi-reticle,
+.sci-fi-telemetry-module,
+.planet-quick-dock,
+.narrative-rail,
+.sci-fi-specs-card,
+.manual-hint,
+.menu-scrim,
+.expedition-menu {
+  transition: opacity .45s ease, visibility 0s linear;
+}
+
+.inspection-exit {
+  position: fixed;
+  z-index: 40;
+  top: 26px;
+  right: 4.4vw;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(224, 208, 169, .48);
+  border-radius: 3px;
+  color: #f5f0e4;
+  background: rgba(8, 13, 20, .62);
+  backdrop-filter: blur(12px);
+  font: 11px 'DM Mono', monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.inspection-exit:hover,
+.inspection-exit:focus-visible {
+  border-color: rgba(224, 208, 169, .85);
+  background: rgba(17, 25, 36, .88);
+}
+
+.inspection-exit span { font-size: 17px; }
+
 @media (max-width: 680px) {
+  .inspection-exit { top: 18px; right: 4vw; min-height: 40px; padding: 0 12px; font-size: 10px; }
   .archive-gallery {
     top: 12svh;
     right: 4vw;

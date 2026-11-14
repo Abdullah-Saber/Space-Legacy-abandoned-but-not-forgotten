@@ -475,7 +475,7 @@ export default function App() {
   }, [artifactId, artifact.gallery]);
 
   return (
-    <main className="museum">
+    <main className={`museum ${inspecting ? 'is-inspecting' : ''}`}>
       <canvas ref={canvas} className="space" aria-label="Interactive 3D space scene" />
       <div className="shade" />
 
@@ -524,7 +524,7 @@ export default function App() {
       </div>
 
       {/* TOP-RIGHT LIVE TELEMETRY MODULE */}
-      {stage !== 'welcome' && stage !== 'travel' && !transition && !artifact.gallery?.length && (
+      {stage !== 'welcome' && stage !== 'travel' && !transition && !artifact.gallery?.length && !inspecting && (
         <aside className="sci-fi-telemetry-module" aria-label="Planetary telemetry">
           <div className="telemetry-header">
             <span className="live-dot pulse" />
@@ -704,7 +704,7 @@ export default function App() {
       )}
 
       {/* QUICK PLANET VEHICLE NAVIGATION SWITCHER */}
-      {(stage === 'discovery' || stage === 'story') && (
+      {(stage === 'discovery' || stage === 'story') && !inspecting && (
         <nav className="planet-quick-dock" aria-label="Quick vehicle switcher">
           <div className="dock-label">
             <span className="live-dot" />
@@ -1237,6 +1237,22 @@ export default function App() {
           )}
         </span>
       </footer>
+      {inspecting && (
+        <button
+          className="inspection-exit"
+          onClick={() => {
+            scene.current?.returnGuided();
+            setInspecting(false);
+            if (!window.speechSynthesis?.speaking) {
+              setNarrationRun(n => n + 1);
+            } else {
+              window.speechSynthesis?.resume();
+            }
+          }}
+        >
+          <span aria-hidden="true">←</span> Exit 3D inspection
+        </button>
+      )}
     </main>
   );
 }
