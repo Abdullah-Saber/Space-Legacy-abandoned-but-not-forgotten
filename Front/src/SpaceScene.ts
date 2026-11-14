@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { gsap } from 'gsap';
 import type { Artifact } from './catalog';
@@ -208,7 +209,7 @@ export class SpaceScene {
   onTravelState?: (state: 'DEPARTURE' | 'ACCELERATION' | 'APPROACH' | 'DESCENT' | 'BLACKOUT' | 'SCENE_SWAP' | 'REVEAL' | 'COMPLETED') => void;
 
   // Async Lifecycle
-  private loader = new GLTFLoader();
+  private loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   private timeline?: gsap.core.Timeline;
   private assetRevision = 0;
   private transitionToken = 0;
