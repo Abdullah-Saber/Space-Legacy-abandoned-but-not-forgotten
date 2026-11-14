@@ -20,7 +20,8 @@ export function ArchiveGallery({ images }: Props) {
   if (!activeImage) return null;
 
   return (
-    <aside className="archive-gallery" aria-label="Surveyor 3 archival image gallery">
+    <>
+      <aside className="archive-gallery" aria-label="Surveyor 3 archival image gallery">
       <div className="archive-gallery-header">
         <div>
           <p className="eyebrow">PHOTO ARCHIVE · SURVEYOR 3</p>
@@ -57,6 +58,8 @@ export function ArchiveGallery({ images }: Props) {
         ))}
       </div>
 
+      </aside>
+
       {expanded && (
         <div
           className="archive-lightbox"
@@ -74,6 +77,6 @@ export function ArchiveGallery({ images }: Props) {
           </figure>
         </div>
       )}
-    </aside>
+    </>
   );
 }
