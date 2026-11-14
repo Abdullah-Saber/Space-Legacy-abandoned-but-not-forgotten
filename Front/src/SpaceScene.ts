@@ -537,7 +537,7 @@ export class SpaceScene {
   // ENVIRONMENT MAP (CALIBRATED INTENSITY)
   // ==========================================
   private async loadEnvironmentMap() {
-    const path = '/Skybox-bg/starmap_2020_4k.exr';
+    const path = '/Skybox-bg/starmap_2020_2k.exr';
     this.publishAsset({ id: 'environment-exr', path, status: 'loading' });
     try {
       const texture = await new EXRLoader().loadAsync(path);
