@@ -30,9 +30,9 @@ export type CameraMode =
   | 'FINALE';
 
 const PLANET_ASSET_PATHS: Record<PlanetId, string> = {
-  earth: '/Models/Earth_1_12756.glb',
-  moon: '/Models/moon_small.glb',
-  mars: '/Models/24881_Mars_1_6792.glb',
+  earth: '/Models/Earth_1_12756-05a5aea99db8.glb',
+  moon: '/Models/moon_small-12d3b0bb7fe2.glb',
+  mars: '/Models/24881_Mars_1_6792-0d27fc65fe3e.glb',
 };
 
 export interface LightingPreset {
@@ -555,7 +555,7 @@ export class SpaceScene {
   // ==========================================
   private loadEnvironmentMap() {
     if (this.environmentMapPromise) return this.environmentMapPromise;
-    const path = '/Skybox-bg/starmap_2020_2k.exr';
+    const path = '/Skybox-bg/starmap_2020_2k-16ff6ce71043.exr';
     this.publishAsset({ id: 'environment-exr', path, status: 'loading' });
     this.environmentMapPromise = (async () => {
       try {

@@ -40,8 +40,8 @@ export const ASSET_CALIBRATIONS: Record<string, AssetCalibration> = {
   'eagle': {
     id: 'eagle',
     name: 'Eagle (Apollo 11 Lunar Module)',
-    sourcePath: '/Models/Moon-missions-models/Apollo11/apollo_11_lunar_module.glb',
-    environmentPath: '/Models/Moon-missions-models/Apollo11/apollo_11_lunar_landing_site.glb',
+    sourcePath: '/Models/Moon-missions-models/Apollo11/apollo_11_lunar_module-a5ca6ee8fe21.glb',
+    environmentPath: '/Models/Moon-missions-models/Apollo11/apollo_11_lunar_landing_site-30242e42f3ca.glb',
     sourceUnit: 'centimeters',
     // Raw mesh Y extends from -134 to 0 (height 134 units). Real LM height = 7.04m, span = 9.4m.
     // Calibrated scale factor to make it ~7m in world units:
@@ -108,7 +108,7 @@ export const ASSET_CALIBRATIONS: Record<string, AssetCalibration> = {
   'apollo15-lrv': {
     id: 'apollo15-lrv',
     name: 'Lunar Roving Vehicle (Apollo 15)',
-    sourcePath: '/Models/Moon-missions-models/Apollo15/mondfahrzeug_lunar_rover.glb',
+    sourcePath: '/Models/Moon-missions-models/Apollo15/mondfahrzeug_lunar_rover-8251760540fb.glb',
     sourceUnit: 'meters',
     // Isolated diagnostic measured the imported hierarchy at 3.10 × 1.77 × 1.78 units.
     // The source is already expressed at vehicle scale; the prior 0.010 multiplier made it 3 cm long.
@@ -146,7 +146,7 @@ export const ASSET_CALIBRATIONS: Record<string, AssetCalibration> = {
   'sojourner': {
     id: 'sojourner',
     name: 'Sojourner (Mars Pathfinder)',
-    sourcePath: '/Models/Mars-missions-models/pathfinder-mission/mars_sojourner_rover_model.glb',
+    sourcePath: '/Models/Mars-missions-models/pathfinder-mission/mars_sojourner_rover_model-2df291ab9fad.glb',
     sourceUnit: 'centimeters',
     // Scaled at 0.0038 to accurately reflect the true miniature 65 cm microwave-sized micro-rover:
     calibrationScale: 0.0038,
@@ -183,8 +183,8 @@ export const ASSET_CALIBRATIONS: Record<string, AssetCalibration> = {
   'spirit': {
     id: 'spirit',
     name: 'Spirit (MER-A)',
-    sourcePath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/24883_MER_static.glb',
-    environmentPath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/Mars - Spirit Landing Site.glb',
+    sourcePath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/24883_MER_static-efad9c6275d8.glb',
+    environmentPath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/Mars - Spirit Landing Site-ea973ecb0140.glb',
     sourceUnit: 'meters',
     // Raw mesh is already in metric units: 2.28m wide x 1.58m tall x 1.65m long.
     calibrationScale: 1.0,
@@ -221,8 +221,8 @@ export const ASSET_CALIBRATIONS: Record<string, AssetCalibration> = {
   'opportunity': {
     id: 'opportunity',
     name: 'Opportunity (MER-B)',
-    sourcePath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/24883_MER_static.glb',
-    environmentPath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/Mars- Opportunity Landing Site.glb',
+    sourcePath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/24883_MER_static-efad9c6275d8.glb',
+    environmentPath: '/Models/Mars-missions-models/Spirit & Opportunity-missions/Mars- Opportunity Landing Site-a5c6d75b32ea.glb',
     sourceUnit: 'meters',
     calibrationScale: 1.0,
     calibrationStatus: 'verified',
