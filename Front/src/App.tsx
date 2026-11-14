@@ -484,17 +484,13 @@ export default function App() {
         <button className="wordmark" onClick={replay}>
           <span className="mark">✳</span> ABANDONED <i>but not forgotten</i>
         </button>
-        <div className="topmeta">
-          <span className="live-dot" /> DIGITAL SPACE MUSEUM
-          <span className="top-divider" />
-          {stage === 'story' || stage === 'discovery'
-            ? `${currentWorldNumber} · ${artifactIndexInWorld || 1}/3 · ${artifact.year} · ${artifact.name.toUpperCase()}`
-            : stage === 'planetSelect'
-            ? `SELECT DESTINATION`
-            : stage === 'artifactSelect'
-            ? `${selectedWorld.toUpperCase()} MISSIONS`
-            : 'NASA SPACE APPS CHALLENGE 2026'}
-        </div>
+        {(stage === 'story' || stage === 'discovery' || stage === 'planetSelect' || stage === 'artifactSelect') && (
+          <div className="topmeta">
+            {stage === 'story' || stage === 'discovery'
+              ? `${currentWorldNumber} · ${artifactIndexInWorld || 1}/3 · ${artifact.year} · ${artifact.name.toUpperCase()}`
+              : stage === 'planetSelect' ? 'SELECT DESTINATION' : `${selectedWorld.toUpperCase()} MISSIONS`}
+          </div>
+        )}
         <div className="header-actions">
           <button className="small-control" onClick={() => setCaption(v => !v)}>
             {caption ? 'CAPTIONS ON' : 'CAPTIONS OFF'}
@@ -504,52 +500,6 @@ export default function App() {
           </button>
         </div>
       </header>
-
-      {/* HUD SCI-FI CORNER RETICLES */}
-      <div className="sci-fi-reticle top-left" aria-hidden="true">
-        <span className="reticle-mark">+</span>
-        <small className="reticle-label">SYS: NOMINAL // LINK: DSN-70M</small>
-      </div>
-      <div className="sci-fi-reticle top-right" aria-hidden="true">
-        <small className="reticle-label">{selectedWorld.toUpperCase()} TRAJECTORY</small>
-        <span className="reticle-mark">+</span>
-      </div>
-      <div className="sci-fi-reticle bottom-left" aria-hidden="true">
-        <span className="reticle-mark">+</span>
-        <small className="reticle-label">SEC: 092 // ORBITAL ARCHIVE</small>
-      </div>
-      <div className="sci-fi-reticle bottom-right" aria-hidden="true">
-        <small className="reticle-label">GRID: REL-ALPHA // 2026</small>
-        <span className="reticle-mark">+</span>
-      </div>
-
-      {/* TOP-RIGHT LIVE TELEMETRY MODULE */}
-      {stage !== 'welcome' && stage !== 'travel' && !transition && !artifact.gallery?.length && !inspecting && (
-        <aside className="sci-fi-telemetry-module" aria-label="Planetary telemetry">
-          <div className="telemetry-header">
-            <span className="live-dot pulse" />
-            <span className="telemetry-title">LIVE TELEMETRY // {selectedWorld.toUpperCase()}</span>
-          </div>
-          <div className="telemetry-grid">
-            <div className="telemetry-cell">
-              <span className="label">COORDINATES</span>
-              <span className="value mono">{artifact?.specs?.coordinates || (selectedWorld === 'moon' ? '0.674° N, 23.473° E' : '19.33° N, 33.55° W')}</span>
-            </div>
-            <div className="telemetry-cell">
-              <span className="label">SURFACE REGION</span>
-              <span className="value">{artifact?.specs?.siteName || (selectedWorld === 'moon' ? 'Mare Tranquillitatis' : 'Ares Vallis')}</span>
-            </div>
-            <div className="telemetry-cell">
-              <span className="label">ATMOSPHERE</span>
-              <span className="value mono">{selectedWorld === 'moon' ? '10⁻¹² Pa (VACUUM)' : '610 Pa (CO₂ 95.3%)'}</span>
-            </div>
-            <div className="telemetry-cell">
-              <span className="label">SOLAR FLUX / G</span>
-              <span className="value mono">{selectedWorld === 'moon' ? '1,361 W/m² · 0.166g' : '590 W/m² · 0.379g'}</span>
-            </div>
-          </div>
-        </aside>
-      )}
 
       {/* CINEMATIC BLACKOUT SHUTTER / VEIL */}
       <div className={`cinematic-curtain ${transition ? 'active' : ''}`} aria-hidden="true" />
@@ -688,7 +638,6 @@ export default function App() {
       {stage === 'travel' && travelState === 'REVEAL' && !transition && (
         <div className="monumental-title-card" aria-live="polite">
           <div className="title-card-inner">
-            <div className="title-badge">[ DEEP SPACE ARTIFACT RECORD // {selectedWorld.toUpperCase()} ]</div>
             <h1 className="title-mission-name">{artifact.name.toUpperCase()}</h1>
             <div className="title-meta-line">
               <span>{artifact.mission.toUpperCase()}</span>
@@ -707,7 +656,6 @@ export default function App() {
       {(stage === 'discovery' || stage === 'story') && !inspecting && (
         <nav className="planet-quick-dock" aria-label="Quick vehicle switcher">
           <div className="dock-label">
-            <span className="live-dot" />
             <span>{selectedWorld.toUpperCase()} MISSIONS:</span>
           </div>
           <div className="dock-pills">
@@ -738,10 +686,6 @@ export default function App() {
       {stage === 'discovery' && (
         <>
           <div className="hero-reveal-card">
-            <div className="hero-badge-row">
-              <span className="badge-tech">[ RECORD 0{artifactIndexInWorld || 1} // AUTHENTIC SITE ]</span>
-              <span className="hero-coords-pill">{artifact.specs?.coordinates}</span>
-            </div>
             <p className="eyebrow">
               HISTORICAL LANDING SITE · {selectedWorld.toUpperCase()} SURFACE
             </p>
@@ -779,7 +723,7 @@ export default function App() {
           {artifact.specs && !artifact.gallery?.length && (
             <aside className="sci-fi-specs-card" aria-label="Vehicle engineering specifications">
               <div className="specs-card-head">
-                <span className="badge-tech">[ SPECIFICATION PROFILE ]</span>
+                <span className="badge-tech">MISSION SPECIFICATIONS</span>
                 <h3>{artifact.name}</h3>
                 <p className="sub">{artifact.tag}</p>
               </div>
@@ -800,10 +744,6 @@ export default function App() {
                   <span className="spec-label">SURFACE STATUS</span>
                   <span className="spec-val highlight">{artifact.specs.hardwareStatus}</span>
                 </div>
-              </div>
-              <div className="specs-card-foot">
-                <span className="tech-scanline" />
-                <small>PERMANENT ARTIFACT · NASA DEEP SPACE ARCHIVE</small>
               </div>
             </aside>
           )}
@@ -924,16 +864,11 @@ export default function App() {
             <div className="chapter-scroll" ref={chapterScroll}>
               {artifact.chapters.map((item, i) => (
                 <section className="chapter-page" data-chapter={i} key={item.title}>
-                  <p className="chapter-number">
-                    {artifact.tag} · CHAPTER 0{i + 1}
-                  </p>
+                  <p className="chapter-number">CHAPTER 0{i + 1} / 0{artifact.chapters.length}</p>
                   <h3>{item.title}</h3>
                   <p className="chapter-copy">{item.text}</p>
                   {caption && <p className="caption">{item.text}</p>}
                   <div className="chapter-footer">
-                    <span>
-                      {artifact.mission} · {artifact.year}
-                    </span>
                     {i < artifact.chapters.length - 1 && (
                       <button
                         onClick={() => {
@@ -976,7 +911,7 @@ export default function App() {
           {artifact.specs && !artifact.gallery?.length && (
             <aside className="sci-fi-specs-card story-mode-specs" aria-label="Vehicle engineering specifications">
               <div className="specs-card-head">
-                <span className="badge-tech">[ MISSION ARCHIVE // SPEC ]</span>
+                <span className="badge-tech">MISSION SPECIFICATIONS</span>
                 <h3>{artifact.name}</h3>
                 <p className="sub">{artifact.tag}</p>
               </div>
@@ -1001,10 +936,6 @@ export default function App() {
                   <span className="spec-label">HARDWARE DISPOSITION</span>
                   <span className="spec-val highlight">{artifact.specs.hardwareStatus}</span>
                 </div>
-              </div>
-              <div className="specs-card-foot">
-                <span className="tech-scanline" />
-                <small>NASA DEEP SPACE REPOSITORY · ARCHIVED</small>
               </div>
             </aside>
           )}
@@ -1222,21 +1153,6 @@ export default function App() {
         </aside>
       )}
 
-      {/* Footer */}
-      <footer className="footer">
-        <span>© 2026 · A SPACE APPS EXPERIENCE</span>
-        <span className="footer-route">EARTH <i>—</i> MOON <i>—</i> MARS</span>
-        <span className="footer-status">
-          {stage === 'story' || stage === 'discovery' ? (
-            <>
-              <span className="live-dot" />
-              {selectedWorld.toUpperCase()} SURFACE — {artifact.year} &nbsp;·&nbsp; {artifactIndexInWorld || 1}/3
-            </>
-          ) : (
-            'NASA SPACE APPS CHALLENGE 2026'
-          )}
-        </span>
-      </footer>
       {inspecting && (
         <button
           className="inspection-exit"
