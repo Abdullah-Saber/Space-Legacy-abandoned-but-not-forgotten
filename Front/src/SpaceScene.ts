@@ -329,8 +329,20 @@ export class SpaceScene {
 
     this.resize();
     window.addEventListener('resize', this.resize);
-    this.renderer.setAnimationLoop(this.render);
+    document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    if (!document.hidden) this.renderer.setAnimationLoop(this.render);
   }
+
+  private handleVisibilityChange = () => {
+    if (document.hidden) {
+      this.renderer.setAnimationLoop(null);
+      return;
+    }
+
+    this.lastFrameTime = 0;
+    this.renderer.setAnimationLoop(this.render);
+    this.render(performance.now());
+  };
 
   // ==========================================
   // LIGHTING & PBR PIPELINE (NO WASHED OUT LOOK)
@@ -874,9 +886,10 @@ export class SpaceScene {
     const modelPromise = artifact.model
       ? this.loadGLTF(`artifact-${artifact.id}`, artifact.model)
       : Promise.resolve(undefined);
-    const environmentPromise = artifact.model ? this.loadEnvironmentMap() : Promise.resolve();
+    // Reflections can arrive while the artifact is being revealed; they should not hold up the model.
+    if (artifact.model) void this.loadEnvironmentMap();
 
-    const [modelResult] = await Promise.allSettled([modelPromise, environmentPromise]);
+    const [modelResult] = await Promise.allSettled([modelPromise]);
 
     if (revision !== this.assetRevision || token !== this.transitionToken) {
       if (modelResult.status === 'fulfilled' && modelResult.value) this.disposeObject(modelResult.value.scene);
@@ -1644,11 +1657,13 @@ export class SpaceScene {
     }
 
     // High speed travel streaks
-    if (this.travelPoints) {
+    if (
+      this.travelPoints &&
+      this.travelPoints.material instanceof THREE.LineBasicMaterial &&
+      this.travelPoints.material.opacity > 0.05
+    ) {
       const arr = this.travelPoints.geometry.attributes.position as THREE.BufferAttribute;
-      const isFast =
-        this.travelPoints.material instanceof THREE.LineBasicMaterial &&
-        this.travelPoints.material.opacity > 0.05;
+      const isFast = this.travelPoints.material.opacity > 0.05;
       const speed = isFast ? 0.44 : 0.04;
       for (let i = 0; i < arr.count; i += 2) {
         let z = arr.getZ(i) + speed;
@@ -1689,6 +1704,7 @@ export class SpaceScene {
     this.cancelJourney();
     this.renderer.setAnimationLoop(null);
     window.removeEventListener('resize', this.resize);
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     this.controls.dispose();
 
     if (this.debugOverlay?.parentElement) {
