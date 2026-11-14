@@ -61,8 +61,8 @@ button {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(3, 7, 13, 0.78) 0%, rgba(3, 7, 13, 0.22) 48%, rgba(3, 7, 13, 0.05) 100%),
-    linear-gradient(0deg, rgba(3, 6, 11, 0.65) 0%, transparent 30%, transparent 75%, rgba(3, 6, 11, 0.35) 100%);
+    linear-gradient(90deg, rgba(3, 7, 13, 0.50) 0%, rgba(3, 7, 13, 0.12) 48%, rgba(3, 7, 13, 0.02) 100%),
+    linear-gradient(0deg, rgba(3, 6, 11, 0.42) 0%, transparent 30%, transparent 75%, rgba(3, 6, 11, 0.22) 100%);
 }
 
 /* ========================================================
@@ -1563,6 +1563,84 @@ button:focus-visible {
 /* ========================================================
    MONUMENTAL CINEMATIC MISSION TITLE CARD (~4s REVEAL)
    ======================================================== */
+
+/* Keep the world and hardware in view; panels carry only the information needed now. */
+.welcome-selector {
+  width: min(500px, 40vw);
+  padding: 28px 32px;
+  background: rgba(8, 14, 24, 0.74);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.42);
+}
+
+.welcome-selector h2 {
+  font-size: clamp(2.5rem, 3.6vw, 3.6rem);
+}
+
+.welcome-selector .selector-sub {
+  font-size: clamp(17px, 1.15vw, 20px);
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+
+.hero-reveal-card {
+  max-width: min(520px, 43vw);
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(6, 12, 22, 0.84), rgba(8, 16, 28, 0.70));
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+}
+
+.hero-reveal-card h1 { font-size: clamp(2.3rem, 3.4vw, 3.5rem); }
+.hero-reveal-card .hero-summary { font-size: clamp(17px, 1.15vw, 20px); line-height: 1.55; margin-bottom: 20px; }
+
+.narrative-rail {
+  width: min(390px, 30vw);
+  background: rgba(5, 10, 18, 0.78);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+.sci-fi-telemetry-module {
+  width: 280px;
+  padding: 12px 14px;
+  background: rgba(6, 12, 22, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.38);
+}
+
+.sci-fi-telemetry-module .telemetry-grid { grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+.sci-fi-telemetry-module .telemetry-header { margin-bottom: 9px; padding-bottom: 7px; }
+
+.sci-fi-specs-card {
+  width: 270px;
+  padding: 16px 18px;
+  background: linear-gradient(155deg, rgba(6, 12, 22, 0.82), rgba(8, 16, 28, 0.72));
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.sci-fi-specs-card .specs-card-body { gap: 7px; }
+.sci-fi-specs-card .specs-card-foot { margin-top: 10px; padding-top: 8px; }
+
+@media (max-width: 950px) {
+  .welcome-selector { width: min(500px, 58vw); }
+  .narrative-rail { width: min(390px, 43vw); }
+  .hero-reveal-card { max-width: min(520px, 64vw); }
+}
+
+@media (max-width: 680px) {
+  .welcome-selector { width: 92vw; padding: 22px 18px; }
+  .welcome-selector h2 { font-size: 30px; }
+  .welcome-selector .selector-sub { font-size: 16px; }
+  .hero-reveal-card { max-width: none; }
+  .narrative-rail { left: 3vw; right: 3vw; width: auto; top: auto; bottom: 6svh; height: 54svh; }
+}
+
 .monumental-title-card {
   position: fixed;
   inset: 0;

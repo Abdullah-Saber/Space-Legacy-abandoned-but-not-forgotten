@@ -186,6 +186,8 @@ export class SpaceScene {
 
   // Authoritative Planet Selection State
   activePlanetId: PlanetId = 'earth';
+  private loadedPlanets = new Set<PlanetId>();
+  private planetLoads = new Map<PlanetId, Promise<void>>();
   activeSceneId: 'orbital' | 'surface' = 'orbital';
   activeModelPath = '';
 
@@ -258,7 +260,8 @@ export class SpaceScene {
       alpha: false,
       powerPreference: 'high-performance',
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
+    const pixelRatioCap = window.matchMedia('(max-width: 680px)').matches ? 1.25 : 1.5;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, pixelRatioCap));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.05;
@@ -313,10 +316,8 @@ export class SpaceScene {
     this.createTravelStreaks();
     this.loadEnvironmentMap();
 
-    // Load Planets
+    // Load the welcome world first; other worlds load when selected.
     void this.loadPlanet('earth');
-    void this.loadPlanet('moon');
-    void this.loadPlanet('mars');
 
     if (this.debugScene) {
       this.initDebugTools();
@@ -700,6 +701,7 @@ export class SpaceScene {
 
     const targetGroup =
       planetId === 'earth' ? this.earthGroup : planetId === 'moon' ? this.moonGroup : this.marsGroup;
+    if (!this.loadedPlanets.has(planetId)) void this.loadPlanet(planetId);
     targetGroup.position.set(0, 0, 0);
     this.applyLightingPreset('orbital');
 
@@ -717,8 +719,12 @@ export class SpaceScene {
   }
 
   async loadPlanet(which: PlanetId) {
+    if (this.loadedPlanets.has(which)) return;
+    const existingLoad = this.planetLoads.get(which);
+    if (existingLoad) return existingLoad;
     const path = PLANET_ASSET_PATHS[which];
-    try {
+    const load = (async () => {
+      try {
       const gltf = await this.loadGLTF(`planet-${which}`, path);
       const targetGroup = which === 'earth' ? this.earthGroup : which === 'moon' ? this.moonGroup : this.marsGroup;
       targetGroup.clear();
@@ -734,11 +740,17 @@ export class SpaceScene {
       object.rotation.y = -0.4;
 
       targetGroup.add(object);
+      this.loadedPlanets.add(which);
       targetGroup.position.set(0, 0, 0);
       targetGroup.visible = this.activePlanetId === which && this.activeSceneId === 'orbital';
-    } catch {
-      this.failed = true;
-    }
+      } catch {
+        this.failed = true;
+      } finally {
+        this.planetLoads.delete(which);
+      }
+    })();
+    this.planetLoads.set(which, load);
+    return load;
   }
 
   showPrologue() {

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SpaceScene, type AssetState } from './SpaceScene';
+import type { SpaceScene, AssetState } from './SpaceScene';
 import { artifacts, fallbackAnswer, type Artifact } from './catalog';
 import { buildTour, tourConfig, validateTour, type ArtifactId, type World } from './tour';
 import { ASSET_CALIBRATIONS } from './calibration';
@@ -76,26 +76,32 @@ export default function App() {
   // 1. Initialize Scene Engine
   useEffect(() => {
     if (!canvas.current) return;
-    const instance = new SpaceScene(canvas.current);
-    instance.onAssets = setAssetStates;
-    setAssetStates([...instance.assets]);
+    let disposed = false;
+    let instance: SpaceScene | null = null;
+    void import('./SpaceScene').then(({ SpaceScene }) => {
+      if (disposed || !canvas.current) return;
+      instance = new SpaceScene(canvas.current);
+      instance.onAssets = setAssetStates;
+      setAssetStates([...instance.assets]);
 
-    instance.onBlackout = (black, loadingState) => {
-      setTransition(black);
-      setLoading(loadingState);
-    };
-    instance.onTravelState = setTravelState;
+      instance.onBlackout = (black, loadingState) => {
+        setTransition(black);
+        setLoading(loadingState);
+      };
+      instance.onTravelState = setTravelState;
 
-    scene.current = instance;
-    instance.showPrologue();
-    if (new URLSearchParams(window.location.search).has('debugAssets')) {
-      void instance.showLrvDiagnostic();
-    }
+      scene.current = instance;
+      instance.showPrologue();
+      if (new URLSearchParams(window.location.search).has('debugAssets')) {
+        void instance.showLrvDiagnostic();
+      }
+    });
 
     return () => {
+      disposed = true;
       if (autoTimer.current) clearTimeout(autoTimer.current);
-      instance.dispose();
-      scene.current = null;
+      instance?.dispose();
+      if (scene.current === instance) scene.current = null;
     };
   }, []);
 
@@ -547,7 +553,7 @@ export default function App() {
 
       {/* 1. STAGE: WELCOME */}
       {stage === 'welcome' && (
-        <section className="selector" style={{ maxWidth: '640px' }}>
+        <section className="selector welcome-selector" style={{ maxWidth: '640px' }}>
           <p className="eyebrow">A DIGITAL MUSEUM OF MISSIONS THAT REMAIN</p>
           <h2>Some journeys never return.</h2>
           <p className="selector-sub">
