@@ -2083,10 +2083,10 @@ button:focus-visible {
 .archive-gallery {
   position: fixed;
   z-index: 7;
-  top: 13svh;
+  top: 17svh;
   right: 3vw;
   width: min(620px, 48vw);
-  max-height: 76svh;
+  max-height: 72svh;
   padding: 14px 16px 13px;
   display: grid;
   grid-template-rows: auto minmax(170px, 1fr) auto auto;
