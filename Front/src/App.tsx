@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { SpaceScene, AssetState } from './SpaceScene';
+import { ArchiveGallery } from './ArchiveGallery';
 import { artifacts, fallbackAnswer, type Artifact } from './catalog';
 import { buildTour, tourConfig, validateTour, type ArtifactId, type World } from './tour';
 import { ASSET_CALIBRATIONS } from './calibration';
@@ -466,6 +467,13 @@ export default function App() {
   const currentWorldNumber = selectedWorld === 'moon' ? 'MOON' : 'MARS';
   const artifactIndexInWorld = planetArtifacts.findIndex(x => x.id === artifactId) + 1;
 
+  useEffect(() => {
+    const preview = artifact.gallery?.[0];
+    if (!preview) return;
+    const image = new Image();
+    image.src = preview.src;
+  }, [artifactId, artifact.gallery]);
+
   return (
     <main className="museum">
       <canvas ref={canvas} className="space" aria-label="Interactive 3D space scene" />
@@ -516,7 +524,7 @@ export default function App() {
       </div>
 
       {/* TOP-RIGHT LIVE TELEMETRY MODULE */}
-      {stage !== 'welcome' && stage !== 'travel' && !transition && (
+      {stage !== 'welcome' && stage !== 'travel' && !transition && !artifact.gallery?.length && (
         <aside className="sci-fi-telemetry-module" aria-label="Planetary telemetry">
           <div className="telemetry-header">
             <span className="live-dot pulse" />
@@ -621,6 +629,7 @@ export default function App() {
                   </span>
                   <strong>{x.name}</strong>
                   <small>{x.summary}</small>
+                  {x.gallery?.length && <span className="artifact-format">PHOTO ARCHIVE · {x.gallery.length} VIEWS</span>}
                   <span className="choose-arrow">↗</span>
                 </button>
               ))}
@@ -747,7 +756,7 @@ export default function App() {
             <p className="hero-summary">{artifact.summary}</p>
             <div className="hero-reveal-actions">
               <button className="primary" onClick={enterStory}>
-                Explore Mission Story <span>↓</span>
+                {artifact.gallery?.length ? 'Explore Photo Archive & Story' : 'Explore Mission Story'} <span>↓</span>
               </button>
               {artifact.model && (
                 <button
@@ -764,8 +773,10 @@ export default function App() {
             </div>
           </div>
 
+          {artifact.gallery?.length ? <ArchiveGallery images={artifact.gallery} /> : null}
+
           {/* RIGHT-SIDE SCI-FI VEHICLE ARCHIVE SPECS CARD */}
-          {artifact.specs && (
+          {artifact.specs && !artifact.gallery?.length && (
             <aside className="sci-fi-specs-card" aria-label="Vehicle engineering specifications">
               <div className="specs-card-head">
                 <span className="badge-tech">[ SPECIFICATION PROFILE ]</span>
@@ -816,7 +827,7 @@ export default function App() {
               </div>
 
               {artifact.modelNote && <p className="model-note">{artifact.modelNote}</p>}
-              {!artifact.model && (
+              {!artifact.model && !artifact.modelNote && (
                 <p className="model-note">
                   Authentic 3D model unavailable. This archive record is presented in historical context.
                 </p>
@@ -959,8 +970,10 @@ export default function App() {
             </div>
           </aside>
 
+          {artifact.gallery?.length ? <ArchiveGallery images={artifact.gallery} /> : null}
+
           {/* RIGHT-SIDE SCI-FI VEHICLE ARCHIVE SPECS CARD IN STORY MODE */}
-          {artifact.specs && (
+          {artifact.specs && !artifact.gallery?.length && (
             <aside className="sci-fi-specs-card story-mode-specs" aria-label="Vehicle engineering specifications">
               <div className="specs-card-head">
                 <span className="badge-tech">[ MISSION ARCHIVE // SPEC ]</span>

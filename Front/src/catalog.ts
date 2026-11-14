@@ -8,6 +8,12 @@ export type ArtifactSpecs = {
   hardwareStatus: string;
 };
 
+export type ArchiveImage = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
 export type Artifact = {
   id: string;
   name: string;
@@ -18,6 +24,7 @@ export type Artifact = {
   environment?: string;
   fitSize?: number;
   modelNote?: string;
+  gallery?: ArchiveImage[];
   tag: string;
   summary: string;
   specs: ArtifactSpecs;
@@ -65,6 +72,24 @@ export const artifacts: Artifact[] = [
     mission: 'Surveyor 3',
     year: '1967',
     planet: 'moon',
+    modelNote: 'Three archival views document the lander, its lunar site, and its later visit by Apollo 12.',
+    gallery: [
+      {
+        src: '/images/surveyor3/surveyor3-1-9de24081.webp',
+        alt: 'Surveyor 3 standing on the lunar surface.',
+        caption: 'Surveyor 3 at its Oceanus Procellarum landing site',
+      },
+      {
+        src: '/images/surveyor3/surveyor3-2-b7be4d6f.webp',
+        alt: 'Archival view of the Surveyor 3 spacecraft against a dark background.',
+        caption: 'Surveyor 3 spacecraft and landing gear',
+      },
+      {
+        src: '/images/surveyor3/surveyor3-3-b168e3d0.webp',
+        alt: 'An Apollo astronaut standing beside Surveyor 3 on the Moon.',
+        caption: 'Apollo 12 astronaut beside Surveyor 3',
+      },
+    ],
     tag: 'ROBOTIC LUNAR LANDER',
     summary: 'A robotic visitor later examined by Apollo 12.',
     specs: {

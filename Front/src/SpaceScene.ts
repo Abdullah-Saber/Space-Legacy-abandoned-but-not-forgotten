@@ -188,6 +188,9 @@ export class SpaceScene {
   activePlanetId: PlanetId = 'earth';
   private loadedPlanets = new Set<PlanetId>();
   private planetLoads = new Map<PlanetId, Promise<void>>();
+  private environmentMapPromise?: Promise<void>;
+  private minimumFrameInterval = 0;
+  private lastFrameTime = 0;
   activeSceneId: 'orbital' | 'surface' = 'orbital';
   activeModelPath = '';
 
@@ -260,12 +263,14 @@ export class SpaceScene {
       alpha: false,
       powerPreference: 'high-performance',
     });
-    const pixelRatioCap = window.matchMedia('(max-width: 680px)').matches ? 1.25 : 1.5;
+    const compactDevice = window.matchMedia('(max-width: 680px)').matches;
+    const pixelRatioCap = compactDevice ? 1.25 : 1.5;
+    this.minimumFrameInterval = compactDevice ? 1000 / 30 : 0;
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, pixelRatioCap));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.05;
-    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.enabled = !compactDevice;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this.scene.background = new THREE.Color('#020409');
@@ -314,8 +319,6 @@ export class SpaceScene {
     // Environmental Systems
     this.createAmbientParticles();
     this.createTravelStreaks();
-    this.loadEnvironmentMap();
-
     // Load the welcome world first; other worlds load when selected.
     void this.loadPlanet('earth');
 
@@ -538,32 +541,36 @@ export class SpaceScene {
   // ==========================================
   // ENVIRONMENT MAP (CALIBRATED INTENSITY)
   // ==========================================
-  private async loadEnvironmentMap() {
+  private loadEnvironmentMap() {
+    if (this.environmentMapPromise) return this.environmentMapPromise;
     const path = '/Skybox-bg/starmap_2020_2k.exr';
     this.publishAsset({ id: 'environment-exr', path, status: 'loading' });
-    try {
-      const texture = await new EXRLoader().loadAsync(path);
-      texture.mapping = THREE.EquirectangularReflectionMapping;
-      texture.colorSpace = THREE.LinearSRGBColorSpace;
-      this.scene.environment = texture;
-      // The map contributes restrained PBR reflections. A dark background preserves silhouettes and contrast.
-      this.scene.background = new THREE.Color('#020409');
+    this.environmentMapPromise = (async () => {
+      try {
+        const texture = await new EXRLoader().loadAsync(path);
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        texture.colorSpace = THREE.LinearSRGBColorSpace;
+        this.scene.environment = texture;
+        // The map contributes restrained PBR reflections. A dark background preserves silhouettes and contrast.
+        this.scene.background = new THREE.Color('#020409');
 
-      // CRITICAL: Calibrate environment intensity so EXR starlight does not wash out materials!
-      // In Three.js, environmentIntensity controls how strongly the HDR map illuminates PBR materials:
-      (this.scene as unknown as { environmentIntensity: number }).environmentIntensity = 0.35;
+        // CRITICAL: Calibrate environment intensity so EXR starlight does not wash out materials!
+        // In Three.js, environmentIntensity controls how strongly the HDR map illuminates PBR materials:
+        (this.scene as unknown as { environmentIntensity: number }).environmentIntensity = 0.35;
 
-      this.publishAsset({
-        id: 'environment-exr',
-        path,
-        status: 'ready',
-        dimensions: `${texture.image.width} × ${texture.image.height}`,
-      });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      this.publishAsset({ id: 'environment-exr', path, status: 'error', error: message });
-      this.scene.background = new THREE.Color('#020409');
-    }
+        this.publishAsset({
+          id: 'environment-exr',
+          path,
+          status: 'ready',
+          dimensions: `${texture.image.width} × ${texture.image.height}`,
+        });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        this.publishAsset({ id: 'environment-exr', path, status: 'error', error: message });
+        this.scene.background = new THREE.Color('#020409');
+      }
+    })();
+    return this.environmentMapPromise;
   }
 
   private publishAsset(next: AssetState) {
@@ -867,8 +874,9 @@ export class SpaceScene {
     const modelPromise = artifact.model
       ? this.loadGLTF(`artifact-${artifact.id}`, artifact.model)
       : Promise.resolve(undefined);
+    const environmentPromise = artifact.model ? this.loadEnvironmentMap() : Promise.resolve();
 
-    const [modelResult] = await Promise.allSettled([modelPromise]);
+    const [modelResult] = await Promise.allSettled([modelPromise, environmentPromise]);
 
     if (revision !== this.assetRevision || token !== this.transitionToken) {
       if (modelResult.status === 'fulfilled' && modelResult.value) this.disposeObject(modelResult.value.scene);
@@ -1578,7 +1586,10 @@ export class SpaceScene {
   // ==========================================
   // RENDER LOOP & RESIZE
   // ==========================================
-  render = () => {
+  render = (time = performance.now()) => {
+    if (document.hidden) return;
+    if (this.minimumFrameInterval && time - this.lastFrameTime < this.minimumFrameInterval) return;
+    this.lastFrameTime = time;
     this.frame += 0.001;
 
     // A bounded, additive descent vibration (multi-axis physical signal with realistic landing envelope).
