@@ -1,6 +1,6 @@
 {
   "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
-  "name": "space-legacy-abandoned-but-not-forgotten",
+  "name": "space-legacy",
   "compatibility_date": "2026-11-14",
   "assets": {
     "directory": "./Front/dist",
