@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from ai.rag import answer_question
 from .services import (
     get_all_planets,
     get_missions_by_planet,
@@ -56,7 +57,19 @@ def ask_ai(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    return Response(
-        {"error": "AI integration is not configured yet."},
-        status=status.HTTP_503_SERVICE_UNAVAILABLE
+    data = serializer.validated_data
+
+    result = answer_question(
+        artifact_id=data["artifact_id"],
+        chapter_id=data["chapter_id"],
+        question=data["question"],
+        history=data.get("history", [])
     )
+
+    if result.get("error"):
+        return Response(
+            result,
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+
+    return Response(result, status=status.HTTP_200_OK)
