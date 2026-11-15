@@ -3,6 +3,9 @@
   "name": "space-legacy",
   "main": "./worker.js",
   "compatibility_date": "2026-11-14",
+  "vars": {
+    "BACKEND_ORIGIN": "https://habiba8.pythonanywhere.com"
+  },
   "assets": {
     "directory": "./Front/dist",
     "binding": "ASSETS",
