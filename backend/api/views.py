@@ -1,0 +1,81 @@
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
+from ai.rag import answer_question
+from .services import (
+    get_all_planets,
+    get_missions_by_planet,
+    get_mission_by_id,
+)
+from .serializers import AIQuestionSerializer
+
+MISSION_ID_TO_DATA_ID = {"apollo15-lrv": "apollo15_lrv"}
+MISSION_ID_TO_FRONTEND_ID = {data_id: frontend_id for frontend_id, data_id in MISSION_ID_TO_DATA_ID.items()}
+
+
+@api_view(["GET"])
+def health_check(request):
+    return Response({"status": "ok"})
+
+
+@api_view(["GET"])
+def planets_list(request):
+    return Response(get_all_planets())
+
+
+@api_view(["GET"])
+def planet_missions(request, planet):
+    missions = get_missions_by_planet(planet)
+
+    if not missions:
+        return Response(
+            {"error": "Planet not found or has no missions."},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    return Response([
+        {**mission, "id": MISSION_ID_TO_FRONTEND_ID.get(mission["id"], mission["id"])}
+        for mission in missions
+    ])
+
+
+@api_view(["GET"])
+def mission_details(request, mission_id):
+    mission = get_mission_by_id(MISSION_ID_TO_DATA_ID.get(mission_id, mission_id))
+
+    if mission is None:
+        return Response(
+            {"error": "Mission not found."},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    return Response(mission)
+
+
+@api_view(["POST"])
+def ask_ai(request):
+    serializer = AIQuestionSerializer(data=request.data)
+
+    if not serializer.is_valid():
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    data = serializer.validated_data
+
+    result = answer_question(
+        artifact_id=MISSION_ID_TO_DATA_ID.get(data["artifact_id"], data["artifact_id"]),
+        chapter_id=data["chapter_id"],
+        question=data["question"],
+        history=data.get("history", [])
+    )
+
+    if result.get("error"):
+        return Response(
+            result,
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
+
+    return Response(result, status=status.HTTP_200_OK)

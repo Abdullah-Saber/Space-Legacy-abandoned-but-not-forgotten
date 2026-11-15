@@ -23,6 +23,7 @@ export type ExperienceStage =
   | 'finale';
 
 const API = import.meta.env.VITE_API_BASE_URL;
+const API_TIMEOUT_MS = 60_000;
 const chapterIds = ['mission', 'machine', 'journey', 'discoveries', 'what-remains'];
 
 export default function App() {
@@ -56,6 +57,8 @@ export default function App() {
   const [question, setQuestion] = useState('');
   const [messages, setMessages] = useState<{ role: string; text: string; sources?: { title: string; url?: string }[] }[]>([]);
   const [busy, setBusy] = useState(false);
+  const [archiveStatus, setArchiveStatus] = useState<'unknown' | 'online' | 'offline'>('unknown');
+  const [backendChapters, setBackendChapters] = useState<Record<string, { title: string; text: string }[]>>({});
 
   const [transition, setTransition] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -65,10 +68,51 @@ export default function App() {
   const [travelState, setTravelState] = useState('DEPARTURE');
 
   const artifact = artifacts.find(x => x.id === artifactId) || artifacts[0];
+  const activeChapters = backendChapters[artifact.id]?.length === artifact.chapters.length
+    ? backendChapters[artifact.id]
+    : artifact.chapters;
   const calib = ASSET_CALIBRATIONS[artifactId];
   const visualStatus = assetStates.find(x => x.id === `artifact-${artifactId}`);
   const manualMode = manualChapterScroll.current;
   const debugAssets = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debugAssets');
+
+  // Wake hosted APIs early; the local museum remains available while a free-tier
+  // backend starts or when it is temporarily unavailable.
+  useEffect(() => {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+    fetch(`${API ? API.replace(/\/$/, '') : ''}/api/health/`, { signal: controller.signal })
+      .then(res => {
+        if (!res.ok) throw new Error(`Health check returned ${res.status}`);
+        setArchiveStatus('online');
+      })
+      .catch(() => setArchiveStatus('offline'))
+      .finally(() => window.clearTimeout(timeout));
+    return () => {
+      controller.abort();
+      window.clearTimeout(timeout);
+    };
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch(`${API ? API.replace(/\/$/, '') : ''}/api/missions/${artifact.id}/`, { signal: controller.signal })
+      .then(res => {
+        if (!res.ok) throw new Error(`Mission request returned ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        if (!Array.isArray(data.chapters)) return;
+        const chapters = data.chapters
+          .filter((item: { title?: unknown; narration_text?: unknown }) => typeof item.title === 'string' && typeof item.narration_text === 'string')
+          .map((item: { title: string; narration_text: string }) => ({ title: item.title, text: item.narration_text }));
+        if (chapters.length === artifact.chapters.length) {
+          setBackendChapters(current => ({ ...current, [artifact.id]: chapters }));
+        }
+      })
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, [artifact.id, artifact.chapters.length]);
 
   pausedRef.current = paused;
   narratorPausedRef.current = narratorPaused;
@@ -226,7 +270,7 @@ export default function App() {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
     window.speechSynthesis.cancel();
-    const narration = artifact.chapters[chapter]?.text;
+    const narration = activeChapters[chapter]?.text;
     if (!narration) return;
 
     const utterance = new SpeechSynthesisUtterance(narration);
@@ -256,7 +300,7 @@ export default function App() {
       window.speechSynthesis.cancel();
       cancelAuto();
     };
-  }, [stage, artifactId, chapter, cancelAuto, artifact, narrationRun]);
+  }, [stage, artifactId, chapter, cancelAuto, artifact, activeChapters, narrationRun]);
 
   useEffect(() => {
     if (stage !== 'story') return;
@@ -438,26 +482,32 @@ export default function App() {
     setQuestion('');
     setMessages(m => [...m, { role: 'user', text }]);
     setBusy(true);
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), API_TIMEOUT_MS);
 
     try {
-      if (!API) throw new Error('Archive API not configured');
-      const res = await fetch(`${API.replace(/\/$/, '')}/api/ai/ask/`, {
+      const endpoint = API ? `${API.replace(/\/$/, '')}/api/ai/ask/` : '/api/ai/ask/';
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           artifact_id: artifact.id,
-          chapter_id: chapterIds[chapter],
+          chapter_id: chapterIds[chapter].replace('-', '_'),
           question: text,
-          history: messages.slice(-8).map(m => ({ role: m.role, content: m.text })),
+          history: messages.slice(-8).map(m => ({ role: m.role, text: m.text.slice(0, 500) })),
         }),
       });
       if (!res.ok) throw new Error(`Archive returned ${res.status}`);
       const data = await res.json();
+      setArchiveStatus('online');
       setMessages(m => [...m, { role: 'assistant', text: data.answer ?? 'No answer was returned.', sources: data.sources ?? [] }]);
     } catch {
+      setArchiveStatus('offline');
       const fallback = fallbackAnswer(artifact, text);
       setMessages(m => [...m, { role: 'assistant', text: fallback.answer, sources: fallback.sources }]);
     } finally {
+      window.clearTimeout(timeout);
       setBusy(false);
     }
   }
@@ -777,7 +827,7 @@ export default function App() {
                 <div className="chapter-progress">
                   <span>CHAPTER 0{chapter + 1} / 05</span>
                   <div className="progress">
-                    {artifact.chapters.map((_, i) => (
+                    {activeChapters.map((_, i) => (
                       <span key={i} className={i <= chapter ? 'active' : ''} />
                     ))}
                   </div>
@@ -862,7 +912,7 @@ export default function App() {
 
             {/* Scrollable Story Chapters */}
             <div className="chapter-scroll" ref={chapterScroll}>
-              {artifact.chapters.map((item, i) => (
+              {activeChapters.map((item, i) => (
                 <section className="chapter-page" data-chapter={i} key={item.title}>
                   <p className="chapter-number">CHAPTER 0{i + 1} / 0{artifact.chapters.length}</p>
                   <h3>{item.title}</h3>
@@ -1094,7 +1144,10 @@ export default function App() {
               </button>
             </div>
             <p className="drawer-context">
-              Current record · {artifact.name} / {artifact.chapters[chapter]?.title}
+              Current record · {artifact.name} / {activeChapters[chapter]?.title}
+            </p>
+            <p className="drawer-note" role="status" aria-live="polite">
+              {archiveStatus === 'online' ? 'Archive connection ready.' : archiveStatus === 'offline' ? 'Archive unavailable · showing local historical replies.' : 'Connecting to the archive…'}
             </p>
             <div className="messages">
               {!messages.length && (
@@ -1119,6 +1172,7 @@ export default function App() {
                 value={question}
                 onChange={e => setQuestion(e.target.value)}
                 placeholder="Ask the Archive…"
+                maxLength={1000}
               />
               <button disabled={busy}>Send ↗</button>
             </form>
