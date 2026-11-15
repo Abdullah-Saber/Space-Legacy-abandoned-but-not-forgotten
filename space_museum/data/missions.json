@@ -27,8 +27,8 @@
           "narration_text": "In July 1969, Apollo 11 carried astronauts Neil Armstrong and Buzz Aldrin toward the Moon. Their goal was simple and historic: land the lunar module Eagle on the surface and return safely to Earth.",
           "sources": [
             {
-              "title": "NASA - Apollo 11 Lunar Module Eagle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-eagle-page"
+              "title": "NASA - Apollo 11 Mission Overview",
+              "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/"
             }
           ]
         },
@@ -39,8 +39,8 @@
           "narration_text": "Eagle had two parts. The descent stage held the landing engine, legs and storage, while the ascent stage carried the crew cabin and the engine that lifted the astronauts back off the Moon.",
           "sources": [
             {
-              "title": "NASA - Apollo 11 Lunar Module Eagle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-eagle-page"
+              "title": "NASA - Apollo 11 Mission Overview",
+              "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/"
             }
           ]
         },
@@ -51,8 +51,8 @@
           "narration_text": "Eagle separated from the command module Columbia in lunar orbit and descended to the Sea of Tranquility. Armstrong and Aldrin touched down on July 20, 1969, while Michael Collins kept orbiting above.",
           "sources": [
             {
-              "title": "NASA - Apollo 11 Lunar Module Eagle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-eagle-page"
+              "title": "NASA - Apollo 11 Mission Overview",
+              "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/"
             }
           ]
         },
@@ -60,11 +60,11 @@
           "id": "discoveries",
           "title": "The Discoveries",
           "summary": "Rocks, soil and the first experiments.",
-          "narration_text": "The crew collected lunar rock and soil samples and set up scientific instruments, including a laser reflector that scientists can still use to measure the distance to the Moon. The samples taught us about the Moon's early history.",
+          "narration_text": "The crew deployed scientific experiments on the surface and gathered lunar rock and soil samples to bring home. Those samples gave scientists their first direct look at material from the Moon.",
           "sources": [
             {
-              "title": "NASA - Apollo 11 Lunar Module Eagle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-eagle-page"
+              "title": "NASA - Apollo 11 Mission Overview",
+              "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/"
             }
           ]
         },
@@ -75,8 +75,8 @@
           "narration_text": "After the moonwalk, the astronauts returned in the ascent stage. The descent stage was intentionally left on the lunar surface, and it remains at Tranquility Base today. The ascent stage is a separate story.",
           "sources": [
             {
-              "title": "NASA - Apollo 11 Lunar Module Eagle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-eagle-page"
+              "title": "NASA - Apollo 11 Mission Overview",
+              "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/"
             }
           ]
         }
@@ -98,7 +98,11 @@
           "sources": [
             {
               "title": "NASA - Surveyor 3",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-surveyor3-page"
+              "url": "https://science.nasa.gov/mission/lunar-rangers-and-surveyors/surveyor-3/"
+            },
+            {
+              "title": "NASA - Footpads and Footprints: Humans and Machine Meet on the Moon",
+              "url": "https://science.nasa.gov/earth/moon/footpads-and-footprints-humans-and-machine-meet-on-the-moon/"
             }
           ]
         },
@@ -110,7 +114,11 @@
           "sources": [
             {
               "title": "NASA - Surveyor 3",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-surveyor3-page"
+              "url": "https://science.nasa.gov/mission/lunar-rangers-and-surveyors/surveyor-3/"
+            },
+            {
+              "title": "NASA - Footpads and Footprints: Humans and Machine Meet on the Moon",
+              "url": "https://science.nasa.gov/earth/moon/footpads-and-footprints-humans-and-machine-meet-on-the-moon/"
             }
           ]
         },
@@ -122,7 +130,11 @@
           "sources": [
             {
               "title": "NASA - Surveyor 3",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-surveyor3-page"
+              "url": "https://science.nasa.gov/mission/lunar-rangers-and-surveyors/surveyor-3/"
+            },
+            {
+              "title": "NASA - Footpads and Footprints: Humans and Machine Meet on the Moon",
+              "url": "https://science.nasa.gov/earth/moon/footpads-and-footprints-humans-and-machine-meet-on-the-moon/"
             }
           ]
         },
@@ -134,7 +146,11 @@
           "sources": [
             {
               "title": "NASA - Surveyor 3",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-surveyor3-page"
+              "url": "https://science.nasa.gov/mission/lunar-rangers-and-surveyors/surveyor-3/"
+            },
+            {
+              "title": "NASA - Footpads and Footprints: Humans and Machine Meet on the Moon",
+              "url": "https://science.nasa.gov/earth/moon/footpads-and-footprints-humans-and-machine-meet-on-the-moon/"
             }
           ]
         },
@@ -146,7 +162,11 @@
           "sources": [
             {
               "title": "NASA - Surveyor 3",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-surveyor3-page"
+              "url": "https://science.nasa.gov/mission/lunar-rangers-and-surveyors/surveyor-3/"
+            },
+            {
+              "title": "NASA - Footpads and Footprints: Humans and Machine Meet on the Moon",
+              "url": "https://science.nasa.gov/earth/moon/footpads-and-footprints-humans-and-machine-meet-on-the-moon/"
             }
           ]
         }
@@ -167,8 +187,12 @@
           "narration_text": "Apollo 15 launched in 1971 with a new tool for exploration: the Lunar Roving Vehicle. It would let astronauts travel far beyond walking distance from their lander, carrying tools and samples.",
           "sources": [
             {
-              "title": "NASA - Apollo 15 Lunar Roving Vehicle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-lrv-page"
+              "title": "NASA - Apollo 15 Astronauts Deploy First Lunar Roving Vehicle",
+              "url": "https://www.nasa.gov/centers/marshall/history/this-week-in-nasa-history-apollo-15-astronauts-deploy-first-lunar-roving-vehicle-july.html"
+            },
+            {
+              "title": "NASA - Lunar Roving Vehicle, Apollo 15 Mission",
+              "url": "https://www.nasa.gov/image-article/lunar-roving-vehicle-apollo-15-mission/"
             }
           ]
         },
@@ -176,11 +200,15 @@
           "id": "machine",
           "title": "The Machine",
           "summary": "A folding electric rover.",
-          "narration_text": "The rover was an electric, four-wheeled vehicle that folded up to fit on the side of the lunar module. On the Moon, the astronauts unfolded it, climbed aboard and drove across the surface.",
+          "narration_text": "The rover was an electric, four-wheeled vehicle that folded up to fit on the outside of the lunar module. On the Moon, the astronauts unfolded it, climbed aboard and drove across the surface.",
           "sources": [
             {
-              "title": "NASA - Apollo 15 Lunar Roving Vehicle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-lrv-page"
+              "title": "NASA - Apollo 15 Astronauts Deploy First Lunar Roving Vehicle",
+              "url": "https://www.nasa.gov/centers/marshall/history/this-week-in-nasa-history-apollo-15-astronauts-deploy-first-lunar-roving-vehicle-july.html"
+            },
+            {
+              "title": "NASA - Lunar Roving Vehicle, Apollo 15 Mission",
+              "url": "https://www.nasa.gov/image-article/lunar-roving-vehicle-apollo-15-mission/"
             }
           ]
         },
@@ -191,8 +219,12 @@
           "narration_text": "Apollo 15 landed near the Hadley Rille and Apennine Mountains in July 1971. Astronauts David Scott and James Irwin used the rover for three days of exploring away from the lander.",
           "sources": [
             {
-              "title": "NASA - Apollo 15 Lunar Roving Vehicle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-lrv-page"
+              "title": "NASA - Apollo 15 Astronauts Deploy First Lunar Roving Vehicle",
+              "url": "https://www.nasa.gov/centers/marshall/history/this-week-in-nasa-history-apollo-15-astronauts-deploy-first-lunar-roving-vehicle-july.html"
+            },
+            {
+              "title": "NASA - Lunar Roving Vehicle, Apollo 15 Mission",
+              "url": "https://www.nasa.gov/image-article/lunar-roving-vehicle-apollo-15-mission/"
             }
           ]
         },
@@ -203,8 +235,12 @@
           "narration_text": "Driving let the crew visit more places and bring back more samples than walking alone would allow. Their rock collection included ancient lunar material that helped scientists understand how the Moon formed.",
           "sources": [
             {
-              "title": "NASA - Apollo 15 Lunar Roving Vehicle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-lrv-page"
+              "title": "NASA - Apollo 15 Astronauts Deploy First Lunar Roving Vehicle",
+              "url": "https://www.nasa.gov/centers/marshall/history/this-week-in-nasa-history-apollo-15-astronauts-deploy-first-lunar-roving-vehicle-july.html"
+            },
+            {
+              "title": "NASA - Lunar Roving Vehicle, Apollo 15 Mission",
+              "url": "https://www.nasa.gov/image-article/lunar-roving-vehicle-apollo-15-mission/"
             }
           ]
         },
@@ -215,8 +251,12 @@
           "narration_text": "When the mission ended, the Lunar Roving Vehicle was left parked on the lunar surface near the landing site. It remains on the Moon today, a silent record of the first rover driven by astronauts.",
           "sources": [
             {
-              "title": "NASA - Apollo 15 Lunar Roving Vehicle",
-              "url": "https://nssdc.gsfc.nasa.gov/TODO-replace-with-real-lrv-page"
+              "title": "NASA - Apollo 15 Astronauts Deploy First Lunar Roving Vehicle",
+              "url": "https://www.nasa.gov/centers/marshall/history/this-week-in-nasa-history-apollo-15-astronauts-deploy-first-lunar-roving-vehicle-july.html"
+            },
+            {
+              "title": "NASA - Lunar Roving Vehicle, Apollo 15 Mission",
+              "url": "https://www.nasa.gov/image-article/lunar-roving-vehicle-apollo-15-mission/"
             }
           ]
         }
@@ -237,8 +277,12 @@
           "narration_text": "In 1997, NASA's Mars Pathfinder mission set out to prove that a low-cost lander and a small rover could work on Mars. Sojourner was that rover, an early step in robotic exploration of the Red Planet.",
           "sources": [
             {
-              "title": "NASA - Mars Pathfinder and Sojourner",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-sojourner-page"
+              "title": "NASA - July 4, 1997: Sojourner Arrives on the Red Planet",
+              "url": "https://www.nasa.gov/image-article/july-4-1997-sojourner-arrives-red-planet"
+            },
+            {
+              "title": "NASA - 25 Years Since Pathfinder Touched Down on Mars",
+              "url": "https://www.nasa.gov/solar-system/nasa-marks-25-years-since-pathfinder-touched-down-on-mars/"
             }
           ]
         },
@@ -249,8 +293,12 @@
           "narration_text": "Sojourner was a small six-wheeled rover about the size of a microwave oven, powered by solar panels. It carried cameras and an instrument to study the chemical makeup of rocks.",
           "sources": [
             {
-              "title": "NASA - Mars Pathfinder and Sojourner",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-sojourner-page"
+              "title": "NASA - July 4, 1997: Sojourner Arrives on the Red Planet",
+              "url": "https://www.nasa.gov/image-article/july-4-1997-sojourner-arrives-red-planet"
+            },
+            {
+              "title": "NASA - 25 Years Since Pathfinder Touched Down on Mars",
+              "url": "https://www.nasa.gov/solar-system/nasa-marks-25-years-since-pathfinder-touched-down-on-mars/"
             }
           ]
         },
@@ -261,8 +309,12 @@
           "narration_text": "Pathfinder reached Mars on July 4, 1997, landing with the help of airbags. Sojourner then rolled down a ramp onto the surface and began exploring the rocky terrain around the lander.",
           "sources": [
             {
-              "title": "NASA - Mars Pathfinder and Sojourner",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-sojourner-page"
+              "title": "NASA - July 4, 1997: Sojourner Arrives on the Red Planet",
+              "url": "https://www.nasa.gov/image-article/july-4-1997-sojourner-arrives-red-planet"
+            },
+            {
+              "title": "NASA - 25 Years Since Pathfinder Touched Down on Mars",
+              "url": "https://www.nasa.gov/solar-system/nasa-marks-25-years-since-pathfinder-touched-down-on-mars/"
             }
           ]
         },
@@ -273,8 +325,12 @@
           "narration_text": "Sojourner analyzed rocks and soil near the landing site and showed that a small rover could do real science on Mars. Its success paved the way for the larger rovers that followed.",
           "sources": [
             {
-              "title": "NASA - Mars Pathfinder and Sojourner",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-sojourner-page"
+              "title": "NASA - July 4, 1997: Sojourner Arrives on the Red Planet",
+              "url": "https://www.nasa.gov/image-article/july-4-1997-sojourner-arrives-red-planet"
+            },
+            {
+              "title": "NASA - 25 Years Since Pathfinder Touched Down on Mars",
+              "url": "https://www.nasa.gov/solar-system/nasa-marks-25-years-since-pathfinder-touched-down-on-mars/"
             }
           ]
         },
@@ -285,8 +341,12 @@
           "narration_text": "Final contact came in September 1997. Sojourner's exact final state and location remain unconfirmed, so we do not claim to know where it stopped or what condition it is in.",
           "sources": [
             {
-              "title": "NASA - Mars Pathfinder and Sojourner",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-sojourner-page"
+              "title": "NASA - July 4, 1997: Sojourner Arrives on the Red Planet",
+              "url": "https://www.nasa.gov/image-article/july-4-1997-sojourner-arrives-red-planet"
+            },
+            {
+              "title": "NASA - 25 Years Since Pathfinder Touched Down on Mars",
+              "url": "https://www.nasa.gov/solar-system/nasa-marks-25-years-since-pathfinder-touched-down-on-mars/"
             }
           ]
         }
@@ -307,8 +367,12 @@
           "narration_text": "In 2004, Spirit landed in Gusev Crater, a place that scientists thought might once have held a lake. Its job was to look for rocks and soils that could reveal whether Mars was once wet.",
           "sources": [
             {
-              "title": "NASA - Spirit Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-spirit-page"
+              "title": "NASA - Mars Exploration Rover Spirit",
+              "url": "https://science.nasa.gov/mission/mer-spirit"
+            },
+            {
+              "title": "NASA JPL - Spirit Rover",
+              "url": "https://www.jpl.nasa.gov/missions/mars-exploration-rover-spirit-mer-spirit/"
             }
           ]
         },
@@ -319,8 +383,12 @@
           "narration_text": "Spirit was a solar-powered, six-wheeled Mars Exploration Rover with a robotic arm, cameras and instruments for studying rocks. It worked like a robotic geologist, able to travel, look closely and analyze samples.",
           "sources": [
             {
-              "title": "NASA - Spirit Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-spirit-page"
+              "title": "NASA - Mars Exploration Rover Spirit",
+              "url": "https://science.nasa.gov/mission/mer-spirit"
+            },
+            {
+              "title": "NASA JPL - Spirit Rover",
+              "url": "https://www.jpl.nasa.gov/missions/mars-exploration-rover-spirit-mer-spirit/"
             }
           ]
         },
@@ -328,11 +396,15 @@
           "id": "journey",
           "title": "The Journey",
           "summary": "Far beyond the planned 90 days.",
-          "narration_text": "Spirit launched in 2003 and landed on January 4, 2004. Its mission was planned for about three months, but the rover kept driving across the plains and up into the Columbia Hills for years.",
+          "narration_text": "Spirit launched in 2003 and landed in January 2004. Its mission was planned for about three months, but the rover kept driving across the plains and up into the Columbia Hills for years.",
           "sources": [
             {
-              "title": "NASA - Spirit Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-spirit-page"
+              "title": "NASA - Mars Exploration Rover Spirit",
+              "url": "https://science.nasa.gov/mission/mer-spirit"
+            },
+            {
+              "title": "NASA JPL - Spirit Rover",
+              "url": "https://www.jpl.nasa.gov/missions/mars-exploration-rover-spirit-mer-spirit/"
             }
           ]
         },
@@ -343,8 +415,12 @@
           "narration_text": "Spirit made major discoveries about Martian rocks and minerals altered by past water, revealing the geological history of Mars. Its findings helped scientists understand how water shaped the planet long ago.",
           "sources": [
             {
-              "title": "NASA - Spirit Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-spirit-page"
+              "title": "NASA - Mars Exploration Rover Spirit",
+              "url": "https://science.nasa.gov/mission/mer-spirit"
+            },
+            {
+              "title": "NASA JPL - Spirit Rover",
+              "url": "https://www.jpl.nasa.gov/missions/mars-exploration-rover-spirit-mer-spirit/"
             }
           ]
         },
@@ -355,8 +431,12 @@
           "narration_text": "NASA's last communication with Spirit was on March 22, 2010. Recovery attempts continued for more than a year and officially ended on May 25, 2011. Spirit remains on Mars.",
           "sources": [
             {
-              "title": "NASA - Spirit Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-spirit-page"
+              "title": "NASA - Mars Exploration Rover Spirit",
+              "url": "https://science.nasa.gov/mission/mer-spirit"
+            },
+            {
+              "title": "NASA JPL - Spirit Rover",
+              "url": "https://www.jpl.nasa.gov/missions/mars-exploration-rover-spirit-mer-spirit/"
             }
           ]
         }
@@ -377,8 +457,12 @@
           "narration_text": "Opportunity landed on Mars in January 2004, on a flat plain called Meridiani Planum. Its mission was to search for signs that water once flowed there, and to read the story written in the rocks.",
           "sources": [
             {
-              "title": "NASA - Opportunity Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-opportunity-page"
+              "title": "NASA - Mars Exploration Rover Opportunity",
+              "url": "https://science.nasa.gov/mission/mer-opportunity/"
+            },
+            {
+              "title": "NASA - Six Things to Know About Opportunity",
+              "url": "https://science.nasa.gov/missions/mer/six-things-to-know-about-nasas-opportunity-rover"
             }
           ]
         },
@@ -389,8 +473,12 @@
           "narration_text": "Opportunity was a twin of Spirit: a solar-powered, six-wheeled rover with cameras, a robotic arm and tools to study rock and soil. It was built to last about three months.",
           "sources": [
             {
-              "title": "NASA - Opportunity Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-opportunity-page"
+              "title": "NASA - Mars Exploration Rover Opportunity",
+              "url": "https://science.nasa.gov/mission/mer-opportunity/"
+            },
+            {
+              "title": "NASA - Six Things to Know About Opportunity",
+              "url": "https://science.nasa.gov/missions/mer/six-things-to-know-about-nasas-opportunity-rover"
             }
           ]
         },
@@ -401,8 +489,12 @@
           "narration_text": "Opportunity far exceeded its planned lifespan, traveling over 45 kilometers across the Martian surface. It crossed plains, explored craters and kept going for more than fourteen years.",
           "sources": [
             {
-              "title": "NASA - Opportunity Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-opportunity-page"
+              "title": "NASA - Mars Exploration Rover Opportunity",
+              "url": "https://science.nasa.gov/mission/mer-opportunity/"
+            },
+            {
+              "title": "NASA - Six Things to Know About Opportunity",
+              "url": "https://science.nasa.gov/missions/mer/six-things-to-know-about-nasas-opportunity-rover"
             }
           ]
         },
@@ -413,8 +505,12 @@
           "narration_text": "Opportunity found evidence that water once soaked the rocks of Meridiani Planum, helping show that ancient Mars had wetter conditions than the planet has today.",
           "sources": [
             {
-              "title": "NASA - Opportunity Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-opportunity-page"
+              "title": "NASA - Mars Exploration Rover Opportunity",
+              "url": "https://science.nasa.gov/mission/mer-opportunity/"
+            },
+            {
+              "title": "NASA - Six Things to Know About Opportunity",
+              "url": "https://science.nasa.gov/missions/mer/six-things-to-know-about-nasas-opportunity-rover"
             }
           ]
         },
@@ -425,8 +521,12 @@
           "narration_text": "Opportunity far exceeded its planned lifespan, traveling over 45 kilometers across Mars. Final contact came on June 10, 2018, during a global dust storm. NASA declared the mission complete on February 13, 2019.",
           "sources": [
             {
-              "title": "NASA - Opportunity Rover",
-              "url": "https://science.nasa.gov/TODO-replace-with-real-opportunity-page"
+              "title": "NASA - Mars Exploration Rover Opportunity",
+              "url": "https://science.nasa.gov/mission/mer-opportunity/"
+            },
+            {
+              "title": "NASA - Six Things to Know About Opportunity",
+              "url": "https://science.nasa.gov/missions/mer/six-things-to-know-about-nasas-opportunity-rover"
             }
           ]
         }
