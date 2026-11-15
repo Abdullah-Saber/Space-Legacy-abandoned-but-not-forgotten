@@ -14,7 +14,6 @@ export default {
       const target = new URL(`${url.pathname}${url.search}`, `${origin}/`);
       const headers = new Headers(request.headers);
       headers.delete('host');
-      headers.delete('content-length');
 
       const init = {
         method: request.method,
