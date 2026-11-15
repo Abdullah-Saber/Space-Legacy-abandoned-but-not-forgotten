@@ -199,3 +199,6 @@ GEMINI_MODEL = os.environ.get(
 RAG_MIN_SCORE = float(
     os.environ.get("RAG_MIN_SCORE", "0.5")
 )
+
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
