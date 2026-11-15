@@ -1177,7 +1177,7 @@ export default function App() {
               <button disabled={busy}>Send ↗</button>
             </form>
             <p className="drawer-note">
-              Offline replies are historical fallbacks. Connect the archive API for source-backed answers.
+              Source-backed answers come from the archive; historical replies remain available offline.
             </p>
           </aside>
         </>
