@@ -14,6 +14,9 @@ export default {
       const target = new URL(`${url.pathname}${url.search}`, `${origin}/`);
       const headers = new Headers(request.headers);
       headers.delete('host');
+      headers.delete('content-length');
+      headers.delete('content-encoding');
+      headers.delete('transfer-encoding');
 
       const init = {
         method: request.method,
@@ -22,9 +25,10 @@ export default {
       };
 
       if (request.method !== 'GET' && request.method !== 'HEAD') {
-        const body = await request.arrayBuffer();
-        headers.set('content-length', String(body.byteLength));
-        init.body = body;
+        init.body = await request.text();
+        if (url.pathname === '/api/ai/ask/') {
+          headers.set('content-type', 'application/json');
+        }
       }
 
       const upstream = new Request(target, init);
