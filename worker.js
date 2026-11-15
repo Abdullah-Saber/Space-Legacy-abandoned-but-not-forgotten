@@ -22,7 +22,9 @@ export default {
       };
 
       if (request.method !== 'GET' && request.method !== 'HEAD') {
-        init.body = await request.arrayBuffer();
+        const body = await request.arrayBuffer();
+        headers.set('content-length', String(body.byteLength));
+        init.body = body;
       }
 
       const upstream = new Request(target, init);
