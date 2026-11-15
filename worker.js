@@ -12,7 +12,21 @@ export default {
       }
 
       const target = new URL(`${url.pathname}${url.search}`, `${origin}/`);
-      const upstream = new Request(target, request);
+      const headers = new Headers(request.headers);
+      headers.delete('host');
+      headers.delete('content-length');
+
+      const init = {
+        method: request.method,
+        headers,
+        redirect: request.redirect,
+      };
+
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        init.body = await request.arrayBuffer();
+      }
+
+      const upstream = new Request(target, init);
       return fetch(upstream);
     }
 
